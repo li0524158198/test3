@@ -8,14 +8,16 @@
 
 #import "BIDAppDelegate.h"
 
-#import "BIDViewController.h"
+#import "BIDFirstLevelController.h"
 
 @implementation BIDAppDelegate
+
+@synthesize navController=_navController;
 
 - (void)dealloc
 {
     [_window release];
-    [_viewController release];
+    [_navController release];
     [super dealloc];
 }
 
@@ -23,8 +25,9 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    self.viewController = [[[BIDViewController alloc] initWithNibName:@"BIDViewController" bundle:nil] autorelease];
-    self.window.rootViewController = self.viewController;
+    BIDFirstLevelController *first = [[BIDFirstLevelController alloc]initWithStyle:UITableViewStylePlain];
+    self.navController = [[[UINavigationController alloc] initWithRootViewController:first] autorelease];
+    [self.window addSubview:self.navController.view];
     [self.window makeKeyAndVisible];
     return YES;
 }
